@@ -29,8 +29,8 @@ export class ProductsDataService {
     this.products = this.products.filter((i) => i.id !== id);
   }
 
-  updateProduct(id: string, dto: UpdateProductDTO): Product {
-    this.products.map((i) => {
+  updateProduct(id: string, dto: CreateProductDTO): Product {
+    this.products = this.products.map((i) => {
       if (i.id === id) {
         return {
           ...dto,
@@ -39,9 +39,9 @@ export class ProductsDataService {
           updatedAt: new Date(),
         };
       }
+
       return i;
     });
-
     return this.getProductById(id);
   }
 
