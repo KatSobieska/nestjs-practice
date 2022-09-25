@@ -1,16 +1,16 @@
-import { Roles } from 'src/enums/roles.enum';
+import { Roles } from 'src/shared/enums/roles.enum';
 
 export interface ExternalUserDTO {
   id: string;
   firstName: string;
   lastName: string;
   email: string;
-  dateOfBirth: Array<number>;
-  address: Array<ExternalUserAddress>;
-  role: Array<Roles>;
+  dateOfBirth: Date;
+  address?: Array<ExternalUserAddressDTO>;
+  role: Roles;
 }
 
-export interface ExternalUserAddress {
+export interface ExternalUserAddressDTO {
   country: string;
   city: string;
   street: string;

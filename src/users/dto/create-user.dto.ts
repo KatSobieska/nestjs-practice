@@ -1,18 +1,45 @@
-import { Roles } from 'src/enums/roles.enum';
+import { Transform, Type } from 'class-transformer';
+import { arrayToDate } from '../../shared/helpers/date.helper';
+import {
+  IsEmail,
+  IsNotEmpty,
+  ValidateNested,
+  IsNumber,
+  IsEnum,
+} from 'class-validator';
+import { Roles } from 'src/shared/enums/roles.enum';
 
-export interface CreateUserDTO {
+export class CreateUserDTO {
+  @IsNotEmpty()
   firstName: string;
+  @IsNotEmpty()
   lastName: string;
+
+  @IsEmail()
+  @IsNotEmpty()
   email: string;
-  dateOfBirth: Array<number>;
-  address: Array<CreateUserAddress>;
-  role: Array<Roles>;
+
+  @Transform(({ value }) => arrayToDate(value))
+  dateOfBirth: Date;
+
+  @ValidateNested({ each: true })
+  @Type(() => CreateUserAddressDTO)
+  address?: Array<CreateUserAddressDTO>;
+
+  @IsEnum(Roles)
+  role: Roles;
 }
 
-export interface CreateUserAddress {
+export class CreateUserAddressDTO {
+  @IsNotEmpty()
   country: string;
+  @IsNotEmpty()
   city: string;
+  @IsNotEmpty()
   street: string;
+  @IsNotEmpty()
   homeNo: string;
-  flatNo?: string;
+  @IsNotEmpty()
+  @IsNumber()
+  number: number;
 }
