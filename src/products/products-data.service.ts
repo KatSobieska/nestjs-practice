@@ -26,27 +26,27 @@ export class ProductsDataService {
   }
 
   deleteProduct(id: string): void {
-    this.products = this.products.filter((i) => i.id !== id);
+    this.products = this.products.filter((product) => product.id !== id);
   }
 
   updateProduct(id: string, dto: CreateProductDTO): Product {
-    this.products = this.products.map((i) => {
-      if (i.id === id) {
+    this.products = this.products.map((product) => {
+      if (product.id === id) {
         return {
           ...dto,
-          id: i.id,
-          createdAt: i.createdAt,
+          id: product.id,
+          createdAt: product.createdAt,
           updatedAt: new Date(),
         };
       }
 
-      return i;
+      return product;
     });
     return this.getProductById(id);
   }
 
   getProductById(id: string): Product {
-    return this.products.find((i) => i.id === id);
+    return this.products.find((product) => product.id === id);
   }
 
   getAllProducts(): Array<Product> {
