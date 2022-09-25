@@ -1,6 +1,5 @@
 import { Injectable } from '@nestjs/common';
 import { CreateProductDTO } from './dto/create-product.dto';
-import { UpdateProductDTO } from './dto/update-product.dto';
 import { Product } from './interfaces/product.interface';
 import { v4 as uuidv4 } from 'uuid';
 import { dateToArray } from 'src/shared/helpers/date.helper';
