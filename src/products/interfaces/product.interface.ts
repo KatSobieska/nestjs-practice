@@ -1,11 +1,11 @@
-import { Tags } from 'src/enums/tags.enum';
+import { Tags } from 'src/shared/enums/tags.enum';
 
 export interface Product {
   id: string;
   name: string;
   price: number;
   count: number;
-  tags: Array<Tags>;
+  tags: Tags;
   createdAt: Date;
   updatedAt: Date;
 }
