@@ -4,7 +4,6 @@ import { ExternalUserDTO } from './dto/external-user.dto';
 import { User } from './interfaces/user.interface';
 import { v4 as uuidv4 } from 'uuid';
 import { dateToArray } from 'src/shared/helpers/date.helper';
-import { UpdateUserDTO } from './dto/update-user.dto';
 
 @Injectable()
 export class UsersDataService {
