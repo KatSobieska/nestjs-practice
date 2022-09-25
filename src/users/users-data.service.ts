@@ -26,18 +26,18 @@ export class UsersDataService {
     this.users = this.users.filter((i) => i.id !== id);
   }
 
-  updateUser(id: string, dto: UpdateUserDTO): User {
-    this.users.map((i) => {
+  updateUser(id: string, dto: CreateUserDTO): User {
+    this.users = this.users.map((i) => {
       if (i.id === id) {
         return {
           ...dto,
           id: i.id,
-          birthDate: i.dateOfBirth,
+          dateOfBirth: i.dateOfBirth,
         };
       }
+
       return i;
     });
-
     return this.getUserById(id);
   }
 
