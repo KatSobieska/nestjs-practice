@@ -22,26 +22,26 @@ export class UsersDataService {
     };
   }
   deleteUser(id: string): void {
-    this.users = this.users.filter((i) => i.id !== id);
+    this.users = this.users.filter((user) => user.id !== id);
   }
 
   updateUser(id: string, dto: CreateUserDTO): User {
-    this.users = this.users.map((i) => {
-      if (i.id === id) {
+    this.users = this.users.map((user) => {
+      if (user.id === id) {
         return {
           ...dto,
-          id: i.id,
-          dateOfBirth: i.dateOfBirth,
+          id: user.id,
+          dateOfBirth: user.dateOfBirth,
         };
       }
 
-      return i;
+      return user;
     });
     return this.getUserById(id);
   }
 
   getUserById(id: string): User {
-    return this.users.find((i) => i.id === id);
+    return this.users.find((user) => user.id === id);
   }
 
   getAllUsers(): Array<User> {
