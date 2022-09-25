@@ -5,10 +5,10 @@ import {
   Get,
   HttpCode,
   Param,
+  ParseUUIDPipe,
   Post,
   Put,
 } from '@nestjs/common';
-import { dateToArray } from 'src/shared/helpers/date.helper';
 import { CreateUserDTO } from './dto/create-user.dto';
 import { ExternalUserDTO } from './dto/external-user.dto';
 import { UpdateUserDTO } from './dto/update-user.dto';
@@ -20,7 +20,9 @@ export class UsersController {
   constructor(private userRepository: UsersDataService) {}
 
   @Get(':id')
-  getUserById(@Param('id') _id_: string): ExternalUserDTO {
+  getUserById(
+    @Param('id', new ParseUUIDPipe({ version: '4' })) _id_: string,
+  ): ExternalUserDTO {
     return this.mapUserToExternal(this.userRepository.getUserById(_id_));
   }
 
@@ -42,13 +44,13 @@ export class UsersController {
 
   @Put(':id')
   updateUser(
-    @Param('id') _id_: string,
+    @Param('id', new ParseUUIDPipe({ version: '4' })) id: string,
     @Body() dto: UpdateUserDTO,
   ): ExternalUserDTO {
-    return this.mapUserToExternal(this.userRepository.updateUser(_id_, dto));
+    return this.mapUserToExternal(this.userRepository.updateUser(id, dto));
   }
 
   mapUserToExternal(user: User): ExternalUserDTO {
-    return { ...user, dateOfBirth: dateToArray(user.dateOfBirth) };
+    return { ...user };
   }
 }
