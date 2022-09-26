@@ -13,11 +13,14 @@ import { CreateUserDTO } from './dto/create-user.dto';
 import { ExternalUserDTO } from './dto/external-user.dto';
 import { UpdateUserDTO } from './dto/update-user.dto';
 import { User } from './interfaces/user.interface';
+import { UserValidatorService } from './user-validator.service';
 import { UsersDataService } from './users-data.service';
 
 @Controller('users')
 export class UsersController {
   constructor(private userRepository: UsersDataService) {}
+
+  emailValidate = new UserValidatorService(this.userRepository);
 
   @Get(':id')
   getUserById(
@@ -33,6 +36,7 @@ export class UsersController {
 
   @Post()
   addUser(@Body() _item_: CreateUserDTO): ExternalUserDTO {
+    this.emailValidate.validateUniqueEmail(_item_.email);
     return this.userRepository.addUser(_item_);
   }
 
