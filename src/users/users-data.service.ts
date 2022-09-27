@@ -3,7 +3,6 @@ import { CreateUserDTO } from './dto/create-user.dto';
 import { ExternalUserDTO } from './dto/external-user.dto';
 import { User } from './interfaces/user.interface';
 import { v4 as uuidv4 } from 'uuid';
-import { UserRequireUniqueEmailException } from './exception/user-require-unique-email-exception';
 import { UpdateUserDTO } from './dto/update-user.dto';
 
 @Injectable()
@@ -11,10 +10,6 @@ export class UsersDataService {
   private users: Array<User> = [];
 
   addUser(_item_: CreateUserDTO): ExternalUserDTO {
-    const checkEmail = this.getUserByEmail(_item_.email);
-    if (checkEmail) {
-      throw new UserRequireUniqueEmailException();
-    }
     const user: User = {
       ..._item_,
       id: uuidv4(),
