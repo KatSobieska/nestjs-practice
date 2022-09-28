@@ -8,6 +8,7 @@ import {
   IsEnum,
 } from 'class-validator';
 import { Roles } from 'src/shared/enums/roles.enum';
+import { Role } from '../db/roles.entity';
 
 export class CreateUserDTO {
   @IsNotEmpty()
@@ -27,7 +28,7 @@ export class CreateUserDTO {
   address?: Array<CreateUserAddressDTO>;
 
   @IsEnum(Roles)
-  role: Roles;
+  role: Role[];
 }
 
 export class CreateUserAddressDTO {
@@ -37,8 +38,6 @@ export class CreateUserAddressDTO {
   city: string;
   @IsNotEmpty()
   street: string;
-  @IsNotEmpty()
-  homeNo: string;
   @IsNotEmpty()
   @IsNumber()
   number: number;

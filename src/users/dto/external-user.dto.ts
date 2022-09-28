@@ -1,4 +1,5 @@
-import { Roles } from 'src/shared/enums/roles.enum';
+import { Role } from '../db/roles.entity';
+import { UserAddress } from '../db/userAddress.entity';
 
 export interface ExternalUserDTO {
   id: string;
@@ -6,14 +7,13 @@ export interface ExternalUserDTO {
   lastName: string;
   email: string;
   dateOfBirth: Date;
-  address?: Array<ExternalUserAddressDTO>;
-  role: Roles;
+  address?: UserAddress[];
+  role: Role[];
 }
 
 export interface ExternalUserAddressDTO {
   country: string;
   city: string;
   street: string;
-  homeNo: string;
-  flatNo?: string;
+  number: number;
 }
