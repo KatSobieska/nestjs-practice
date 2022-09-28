@@ -15,5 +15,5 @@ export class CreateProductDTO {
   @IsNotEmpty() @IsNumber() @Min(0) count: number;
   @IsArray()
   @IsEnum({ each: true })
-  tags: Tags;
+  tags: Tags[];
 }

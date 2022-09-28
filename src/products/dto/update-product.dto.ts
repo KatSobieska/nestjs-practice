@@ -15,5 +15,5 @@ export class UpdateProductDTO {
   @IsNotEmpty() @IsNumber() @Min(0) count: number;
   @IsArray()
   @IsEnum({ each: true })
-  tags: Tags;
+  tags: Tags[];
 }
