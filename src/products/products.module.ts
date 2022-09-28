@@ -2,15 +2,17 @@ import { Module } from '@nestjs/common';
 import { ProductsController } from './products.controller';
 import { ProductsDataService } from './products-data.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { TagRepository } from './db/tag.repository';
+import { Tag } from './db/tags.entity';
+import { Product } from './db/products.entity';
 import { ProductRepository } from './db/product.repository';
+import { TagRepository } from './db/tag.repository';
 
 @Module({
-  controllers: [ProductsController],
-  providers: [ProductsDataService],
   imports: [
-    TypeOrmModule.forFeature([TagRepository]),
-    TypeOrmModule.forFeature([ProductRepository]),
+    TypeOrmModule.forFeature([Tag]),
+    TypeOrmModule.forFeature([Product]),
   ],
+  controllers: [ProductsController],
+  providers: [ProductsDataService, ProductRepository, TagRepository],
 })
 export class ProductsModule {}
