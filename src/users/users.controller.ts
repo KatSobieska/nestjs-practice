@@ -9,10 +9,10 @@ import {
   Post,
   Put,
 } from '@nestjs/common';
+import { User } from './db/users.entity';
 import { CreateUserDTO } from './dto/create-user.dto';
 import { ExternalUserDTO } from './dto/external-user.dto';
 import { UpdateUserDTO } from './dto/update-user.dto';
-import { User } from './interfaces/user.interface';
 import { UserValidatorService } from './user-validator.service';
 import { UsersDataService } from './users-data.service';
 
@@ -23,38 +23,42 @@ export class UsersController {
   emailValidate = new UserValidatorService(this.userRepository);
 
   @Get(':id')
-  getUserById(
+  async getUserById(
     @Param('id', new ParseUUIDPipe({ version: '4' })) _id_: string,
-  ): ExternalUserDTO {
-    return this.mapUserToExternal(this.userRepository.getUserById(_id_));
+  ): Promise<ExternalUserDTO> {
+    return this.mapUserToExternal(await this.userRepository.getUserById(_id_));
   }
 
   @Get()
-  getAllUsers(): Array<ExternalUserDTO> {
-    return this.userRepository.getAllUsers().map(this.mapUserToExternal);
+  async getAllUsers(): Promise<ExternalUserDTO[]> {
+    const allUsers = await this.userRepository.getAllUsers();
+    return allUsers.map((user) => this.mapUserToExternal(user));
   }
 
   @Post()
-  addUser(@Body() _item_: CreateUserDTO): ExternalUserDTO {
+  async addUser(@Body() _item_: CreateUserDTO): Promise<ExternalUserDTO> {
     this.emailValidate.validateUniqueEmail(_item_.email);
-    return this.userRepository.addUser(_item_);
+    const user = await this.userRepository.addUser(_item_);
+    return this.mapUserToExternal(user);
   }
 
   @Delete(':id')
   @HttpCode(204)
-  deleteUser(@Param('id') _id_: string): void {
-    return this.userRepository.deleteUser(_id_);
+  async deleteUser(@Param('id') _id_: string): Promise<void> {
+    await this.userRepository.deleteUser(_id_);
+    return null;
   }
 
   @Put(':id')
-  updateUser(
+  async updateUser(
     @Param('id', new ParseUUIDPipe({ version: '4' })) id: string,
     @Body() dto: UpdateUserDTO,
-  ): ExternalUserDTO {
-    return this.mapUserToExternal(this.userRepository.updateUser(id, dto));
+  ): Promise<ExternalUserDTO> {
+    const user = await this.userRepository.updateUser(id, dto);
+    return this.mapUserToExternal(user);
   }
 
   mapUserToExternal(user: User): ExternalUserDTO {
-    return { ...user };
+    return { ...user, role: user.role?.map((i) => i) };
   }
 }
