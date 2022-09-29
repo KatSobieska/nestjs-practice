@@ -15,7 +15,7 @@ export class ProductsDataService {
   private products: Array<Product> = [];
 
   async addProduct(item: CreateProductDTO): Promise<Product> {
-    const tags: Tag[] = await this.tagRepository.findTagsByName(item.tags);
+    const tags: Tag[] = await this.tagRepository.findAllTags();
     const productToSave = new Product();
     productToSave.name = item.name;
     productToSave.price = item.price;
