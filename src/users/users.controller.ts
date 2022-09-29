@@ -59,6 +59,6 @@ export class UsersController {
   }
 
   mapUserToExternal(user: User): ExternalUserDTO {
-    return { ...user, role: user.role?.map((i) => i) };
+    return { ...user };
   }
 }
