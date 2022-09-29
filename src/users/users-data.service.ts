@@ -17,13 +17,15 @@ export class UsersDataService {
   private users: Array<User> = [];
 
   async addUser(_item_: CreateUserDTO): Promise<ExternalUserDTO> {
+    const addresses: UserAddress[] =
+      await this.userAddressRepository.findAllAddresses();
     const userToSave = new User();
     userToSave.id = uuidv4();
     userToSave.firstName = _item_.firstName;
     userToSave.lastName = _item_.lastName;
     userToSave.email = _item_.email;
     userToSave.dateOfBirth = _item_.dateOfBirth;
-    userToSave.address = await this.prepareUserAddressesToSave(_item_.address);
+    userToSave.address = addresses;
     userToSave.role = _item_.role;
     return this.userRepository.save(userToSave);
   }
@@ -33,13 +35,15 @@ export class UsersDataService {
   }
 
   async updateUser(id: string, item: UpdateUserDTO): Promise<User> {
+    const addresses: UserAddress[] =
+      await this.userAddressRepository.findAllAddresses();
     const userToUpdate = await this.getUserById(id);
 
     userToUpdate.firstName = item.firstName;
     userToUpdate.lastName = item.lastName;
     userToUpdate.email = item.email;
     userToUpdate.dateOfBirth = item.dateOfBirth;
-    userToUpdate.address = await this.prepareUserAddressesToSave(item.address);
+    userToUpdate.address = addresses;
     userToUpdate.role = item.role;
 
     await this.userRepository.save(userToUpdate);
