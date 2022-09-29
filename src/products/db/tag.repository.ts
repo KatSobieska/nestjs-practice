@@ -14,4 +14,7 @@ export class TagRepository extends Repository<Tag> {
       },
     });
   }
+  findAllTags(): Promise<Tag[]> {
+    return this.find();
+  }
 }
