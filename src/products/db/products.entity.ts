@@ -16,7 +16,7 @@ export class Product {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column({ length: 100 })
+  @Column({ length: 100, default: 0 })
   name: string;
 
   @Column({

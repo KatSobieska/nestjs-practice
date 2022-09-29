@@ -13,11 +13,11 @@ import { UserAddress } from './userAddress.entity';
 export class User {
   @PrimaryGeneratedColumn('uuid')
   id: string;
-  @Column({ length: 50 })
+  @Column({ length: 50, default: 0 })
   firstName: string;
-  @Column({ length: 50 })
+  @Column({ length: 50, default: 0 })
   lastName: string;
-  @Column({ length: 50 })
+  @Column({ length: 50, default: 0 })
   email: string;
   @CreateDateColumn({ type: 'timestamp' })
   dateOfBirth: Date;
