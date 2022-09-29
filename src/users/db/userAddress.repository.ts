@@ -16,4 +16,7 @@ export class UserAddressRepository extends Repository<UserAddress> {
 
     this.remove(usersAddresses);
   }
+  async findAllAddresses(): Promise<UserAddress[]> {
+    return await this.find();
+  }
 }
