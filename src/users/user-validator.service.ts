@@ -6,8 +6,8 @@ import { UsersDataService } from './users-data.service';
 export class UserValidatorService {
   constructor(private userRepository: UsersDataService) {}
 
-  validateUniqueEmail(email: string): void {
-    const userEmail = this.userRepository.getUserByEmail(email);
+  async validateUniqueEmail(email: string): Promise<void> {
+    const userEmail = await this.userRepository.getUserByEmail(email);
     if (userEmail) {
       throw new UserRequireUniqueEmailException();
     }
