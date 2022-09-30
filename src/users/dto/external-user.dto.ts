@@ -1,5 +1,4 @@
 import { Role } from '../db/roles.entity';
-import { UserAddress } from '../db/userAddress.entity';
 
 export interface ExternalUserDTO {
   id: string;
@@ -7,7 +6,7 @@ export interface ExternalUserDTO {
   lastName: string;
   email: string;
   dateOfBirth: Date;
-  address?: UserAddress[];
+  address?: Array<ExternalUserAddressDTO>;
   role: Role[];
 }
 

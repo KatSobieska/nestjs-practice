@@ -25,7 +25,7 @@ export class UpdateUserDTO {
 
   @ValidateNested({ each: true })
   @Type(() => UpdateUserAddressDTO)
-  address?: UpdateUserAddressDTO[];
+  address?: Array<UpdateUserAddressDTO>;
 
   @IsEnum(Roles)
   role: Role[];
