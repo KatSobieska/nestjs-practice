@@ -7,7 +7,7 @@ import {
   IsNumber,
   IsEnum,
 } from 'class-validator';
-import { Roles } from 'src/shared/enums/roles.enum';
+import { Roles } from '../../shared/enums/roles.enum';
 import { Role } from '../db/roles.entity';
 
 export class UpdateUserDTO {

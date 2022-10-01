@@ -7,8 +7,8 @@ import {
   IsNumber,
   IsEnum,
 } from 'class-validator';
-import { Roles } from 'src/shared/enums/roles.enum';
 import { Role } from '../db/roles.entity';
+import { Roles } from '../../shared/enums/roles.enum';
 
 export class CreateUserDTO {
   @IsNotEmpty()
