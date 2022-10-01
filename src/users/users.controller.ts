@@ -37,7 +37,7 @@ export class UsersController {
 
   @Post()
   async addUser(@Body() _item_: CreateUserDTO): Promise<ExternalUserDTO> {
-    this.emailValidate.validateUniqueEmail(_item_.email);
+    await this.emailValidate.validateUniqueEmail(_item_.email);
     const user = await this.userRepository.addUser(_item_);
     return this.mapUserToExternal(user);
   }
