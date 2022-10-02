@@ -1,0 +1,5 @@
+export enum Orders {
+  NEW_ORDER = 'NEW_ORDER',
+  ORDER_COMPLETED = 'ORDER_COMPLETED',
+  ORDER_SENT = 'ORDER_SENT',
+}
