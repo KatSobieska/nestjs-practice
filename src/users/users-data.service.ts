@@ -27,12 +27,9 @@ export class UsersDataService {
       userToSave.role = user.role;
       userToSave.dateOfBirth = user.dateOfBirth;
 
-      userToSave.address = await this.prepareUserAddressesToSave(
-        user.address,
-        manager.getCustomRepository(UserAddressRepository),
-      );
+      userToSave.address = await this.prepareUserAddressesToSave(user.address);
 
-      return await manager.getCustomRepository(UserRepository).save(userToSave);
+      return this.userRepository.save(userToSave);
     });
   }
 
@@ -52,12 +49,9 @@ export class UsersDataService {
 
       userToUpdate.address = await this.prepareUserAddressesToSave(
         user.address,
-        manager.getCustomRepository(UserAddressRepository),
       );
 
-      return await manager
-        .getCustomRepository(UserRepository)
-        .save(userToUpdate);
+      return this.userRepository.save(userToUpdate);
     });
   }
 
@@ -75,7 +69,6 @@ export class UsersDataService {
 
   async prepareUserAddressesToSave(
     address: CreateUserAddressDTO[] | UpdateUserAddressDTO[],
-    userAddressRepository: UserAddressRepository,
   ): Promise<UserAddress[]> {
     const addresses: UserAddress[] = [];
     for (const add of address) {

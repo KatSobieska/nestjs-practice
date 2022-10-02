@@ -27,9 +27,7 @@ export class ProductsDataService {
       productToSave.count = item.count;
       productToSave.tags = tags;
 
-      return await manager
-        .getCustomRepository(ProductRepository)
-        .save(productToSave);
+      return this.productRepository.save(productToSave);
     });
   }
 
@@ -47,9 +45,8 @@ export class ProductsDataService {
       productToUpdate.count = item.count;
       productToUpdate.tags = tags;
 
-      return await manager
-        .getCustomRepository(ProductRepository)
-        .save(productToUpdate);
+      await this.productRepository.save(productToUpdate);
+      return this.getProductById(id);
     });
   }
 
