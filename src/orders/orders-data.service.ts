@@ -19,11 +19,7 @@ export class OrdersDataService {
       const orderToSave = new Order();
 
       orderToSave.id = uuidv4();
-      orderToSave.price = order.price;
       orderToSave.description = order.description;
-      orderToSave.createdAt = order.createdAt;
-      orderToSave.updatedAt = order.updatedAt;
-      orderToSave.address = order.address;
       orderToSave.orderItems = [];
 
       return await manager.save(orderToSave);
@@ -38,10 +34,7 @@ export class OrdersDataService {
     return this.connection.transaction(async (manager: EntityManager) => {
       const orderToUpdate = await this.getOrderById(id);
 
-      orderToUpdate.price = order.price;
       orderToUpdate.description = order.description;
-      orderToUpdate.createdAt = order.createdAt;
-      orderToUpdate.updatedAt = order.updatedAt;
 
       return await manager.save(orderToUpdate);
     });
