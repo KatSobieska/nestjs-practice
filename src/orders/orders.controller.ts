@@ -9,6 +9,7 @@ import {
   Post,
   Put,
 } from '@nestjs/common';
+import { dateToArray } from 'src/shared/helpers/date.helper';
 import { Order } from './db/orders.entity';
 import { CreateOrderDTO } from './dto/create-order.dto';
 import { ExternalOrderDTO } from './dto/external-order.dto';
@@ -59,6 +60,8 @@ export class OrdersController {
   mapOrderToExternal(order: Order): ExternalOrderDTO {
     return {
       ...order,
+      createdAt: dateToArray(order.createdAt),
+      updatedAt: dateToArray(order.updatedAt),
     };
   }
 }
