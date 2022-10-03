@@ -1,19 +1,13 @@
-import { IsNotEmpty, IsNumber } from 'class-validator';
-import { UserAddress } from 'src/users/db/userAddress.entity';
-import { CreateDateColumn, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { User } from 'src/users/db/users.entity';
+import { OrderedProducts } from '../db/orderedProducts.entity';
 
 export class ExternalOrderDTO {
-  @PrimaryGeneratedColumn('uuid')
   id: string;
-  @IsNotEmpty()
-  @IsNumber()
   price: number;
-  @IsNotEmpty()
   description?: string;
-  @CreateDateColumn({ type: 'timestamp' })
-  createdAt: Date;
-  @CreateDateColumn({ type: 'timestamp' })
-  updatedAt: Date;
-  @OneToOne((type) => UserAddress, (address) => address.user)
-  address: UserAddress[];
+  user?: User;
+  orderItems: OrderedProducts[];
+  createdAt: Array<number>;
+  updatedAt: Array<number>;
+  orders?: string[];
 }
