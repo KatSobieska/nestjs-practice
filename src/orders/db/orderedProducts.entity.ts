@@ -1,4 +1,4 @@
-import { Product } from 'src/products/db/products.entity';
+import { Product } from '../../products/db/products.entity';
 import {
   Column,
   CreateDateColumn,

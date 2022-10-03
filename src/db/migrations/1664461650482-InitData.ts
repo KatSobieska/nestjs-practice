@@ -2,7 +2,7 @@ import { AppDataSource } from '../../app.datasource';
 import { Tag } from '../../products/db/tags.entity';
 import { getRepository, MigrationInterface, QueryRunner } from 'typeorm';
 import { faker } from '@faker-js/faker';
-import { UserAddress } from 'src/users/db/userAddress.entity';
+import { UserAddress } from '../../users/db/userAddress.entity';
 
 export class InitData1664461650482 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
