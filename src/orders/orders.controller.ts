@@ -6,12 +6,13 @@ import {
   HttpCode,
   Param,
   ParseUUIDPipe,
+  Patch,
   Post,
   Put,
 } from '@nestjs/common';
 import { dateToArray } from 'src/shared/helpers/date.helper';
 import { Order } from './db/orders.entity';
-import { CreateOrderDTO } from './dto/create-order.dto';
+import { CreateOrderDTO, CreateOrderProductDTO } from './dto/create-order.dto';
 import { ExternalOrderDTO } from './dto/external-order.dto';
 import { UpdateOrderDTO } from './dto/update-order.dto';
 import { OrdersDataService } from './orders-data.service';
@@ -55,6 +56,29 @@ export class OrdersController {
   ): Promise<ExternalOrderDTO> {
     const order = await this.orderRepository.updateOrder(id, dto);
     return this.mapOrderToExternal(order);
+  }
+
+  @Patch(':id/products')
+  async addProductToOrder(
+    @Param('id', new ParseUUIDPipe({ version: '4' })) id: string,
+    @Body() createOrderProductsDTO: CreateOrderProductDTO,
+  ): Promise<ExternalOrderDTO> {
+    return this.mapOrderToExternal(
+      await this.orderRepository.addProductToOrder(id, createOrderProductsDTO),
+    );
+  }
+
+  @Delete(':id/products/:idOrderProduct')
+  async deleteProductFromOrder(
+    id: string,
+    order: UpdateOrderDTO,
+  ): Promise<Order> {
+    return this.orderRepository.deleteProductFromOrder(id, order);
+  }
+
+  @Patch(':id/:userAddressId')
+  async updateUserAddress(id: string, order: UpdateOrderDTO): Promise<Order> {
+    return this.orderRepository.updateUserAddress(id, order);
   }
 
   mapOrderToExternal(order: Order): ExternalOrderDTO {
