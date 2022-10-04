@@ -8,7 +8,7 @@ export class CreateOrderDTO {
   @IsUUID()
   userId: string;
   @IsNotEmpty()
-  orderItems: Array<CreateOrderProductDTO>;
+  orderItems?: Array<CreateOrderProductDTO>;
   @IsNotEmpty()
   @IsUUID()
   userAddressId: string;
@@ -20,4 +20,11 @@ export class CreateOrderProductDTO {
   @IsNotEmpty()
   @IsNumber()
   quantity: number;
+  description: string;
+  @IsNotEmpty()
+  @IsUUID()
+  userId: string;
+  @IsNotEmpty()
+  @IsUUID()
+  userAddressId: string;
 }
