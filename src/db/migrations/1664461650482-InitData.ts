@@ -6,7 +6,6 @@ import { UserAddress } from '../../users/db/userAddress.entity';
 
 export class InitData1664461650482 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
-    this.saveTags();
     this.saveProducts(await this.saveTags());
     this.saveUsers();
   }
