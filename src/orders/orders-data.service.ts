@@ -47,4 +47,37 @@ export class OrdersDataService {
   getAllOrders(): Promise<Order[]> {
     return this.orderRepository.find();
   }
+
+  async addProductToOrder(id: string, order: CreateOrderDTO): Promise<Order> {
+    return this.connection.transaction(async (manager: EntityManager) => {
+      const orderToUpdate = await this.orderRepository.findOneBy({ id });
+
+      orderToUpdate.description = order.description;
+
+      return await manager.save(orderToUpdate);
+    });
+  }
+
+  async deleteProductFromOrder(
+    id: string,
+    order: UpdateOrderDTO,
+  ): Promise<Order> {
+    return this.connection.transaction(async (manager: EntityManager) => {
+      const orderToUpdate = await this.orderRepository.findOneBy({ id });
+
+      orderToUpdate.description = order.description;
+
+      return await manager.save(orderToUpdate);
+    });
+  }
+
+  async updateUserAddress(id: string, order: UpdateOrderDTO): Promise<Order> {
+    return this.connection.transaction(async (manager: EntityManager) => {
+      const orderToUpdate = await this.orderRepository.findOneBy({ id });
+
+      orderToUpdate.description = order.description;
+
+      return await manager.save(orderToUpdate);
+    });
+  }
 }
