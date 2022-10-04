@@ -8,6 +8,7 @@ import {
   ParseUUIDPipe,
   Post,
   Put,
+  Query,
   UseGuards,
 } from '@nestjs/common';
 import { RoleGuard } from 'src/shared/guards/role.guard';
@@ -17,6 +18,7 @@ import { CreateProductDTO } from './dto/create-product.dto';
 import { ExternalProductDTO } from './dto/external-product.dto';
 import { UpdateProductDTO } from './dto/update-product.dto';
 import { ProductsDataService } from './products-data.service';
+import { ProductsQuery } from './queries/ProductsQuery.interface';
 
 @Controller('products')
 export class ProductsController {
@@ -31,8 +33,10 @@ export class ProductsController {
     );
   }
 
-  @Get() async getAllProducts(): Promise<ExternalProductDTO[]> {
-    const allProducts = await this.productRepository.getAllProducts();
+  @Get() async getAllProducts(
+    @Query() query: ProductsQuery,
+  ): Promise<Array<ExternalProductDTO>> {
+    const allProducts = await this.productRepository.getAllProducts(query);
     return allProducts.map((product) => this.mapProductToExternal(product));
   }
 

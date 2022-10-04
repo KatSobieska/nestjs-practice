@@ -8,11 +8,13 @@ import {
   ParseUUIDPipe,
   Post,
   Put,
+  Query,
 } from '@nestjs/common';
 import { User } from './db/users.entity';
 import { CreateUserDTO } from './dto/create-user.dto';
 import { ExternalUserDTO } from './dto/external-user.dto';
 import { UpdateUserDTO } from './dto/update-user.dto';
+import { UsersQuery } from './queries/UsersQuery.interface';
 import { UserValidatorService } from './user-validator.service';
 import { UsersDataService } from './users-data.service';
 
@@ -30,8 +32,8 @@ export class UsersController {
   }
 
   @Get()
-  async getAllUsers(): Promise<ExternalUserDTO[]> {
-    const allUsers = await this.userRepository.getAllUsers();
+  async getAllUsers(@Query() query: UsersQuery): Promise<ExternalUserDTO[]> {
+    const allUsers = await this.userRepository.getAllUsers(query);
     return allUsers.map((user) => this.mapUserToExternal(user));
   }
 

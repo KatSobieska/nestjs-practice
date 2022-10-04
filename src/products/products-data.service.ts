@@ -7,6 +7,7 @@ import { Product } from './db/products.entity';
 import { UpdateProductDTO } from './dto/update-product.dto';
 
 import { Connection, EntityManager } from 'typeorm';
+import { ProductsQuery } from './queries/ProductsQuery.interface';
 
 @Injectable()
 export class ProductsDataService {
@@ -54,7 +55,7 @@ export class ProductsDataService {
     return this.productRepository.findOneBy({ id });
   }
 
-  getAllProducts(): Promise<Product[]> {
-    return this.productRepository.find();
+  getAllProducts(_query_: ProductsQuery): Promise<Product[]> {
+    return this.productRepository.findAll(_query_);
   }
 }
