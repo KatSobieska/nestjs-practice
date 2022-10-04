@@ -6,8 +6,8 @@ import { UserAddress } from '../../users/db/userAddress.entity';
 
 export class InitData1664461650482 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
-    this.saveProducts(await this.saveTags());
-    this.saveUsers();
+    await this.saveProducts(await this.saveTags());
+    await this.saveUsers();
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {}
@@ -39,14 +39,14 @@ export class InitData1664461650482 implements MigrationInterface {
 
   private async saveProducts(tags: Tag[]): Promise<void> {
     const products = [];
-    for (let i = 0; i < 100; i++) {
+    for (let i = 0; i < 10; i++) {
       const savedId = faker.datatype.uuid();
 
       const product = {
         id: savedId,
         name: faker.commerce.productName(),
         price: faker.commerce.price(),
-        count: faker.datatype.number(100),
+        count: faker.datatype.number(10),
         tags: [tags[0], tags[1]],
         createdAt: faker.date.past(),
         updatedAt: faker.date.past(),
@@ -59,7 +59,7 @@ export class InitData1664461650482 implements MigrationInterface {
 
   private async saveUsers(): Promise<void> {
     const users = [];
-    for (let i = 0; i < 100; i++) {
+    for (let i = 0; i < 10; i++) {
       const savedId = faker.datatype.uuid();
 
       const user = {
@@ -80,7 +80,7 @@ export class InitData1664461650482 implements MigrationInterface {
   private async saveUserAddress(): Promise<UserAddress[]> {
     const userAddressessArr: UserAddress[] = [];
     const userAddresses = [];
-    for (let i = 0; i < 100; i++) {
+    for (let i = 0; i < 10; i++) {
       const savedId = faker.datatype.uuid();
 
       const address = {
