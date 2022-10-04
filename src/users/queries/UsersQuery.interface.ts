@@ -1,5 +1,5 @@
 import { Roles } from 'src/shared/enums/roles.enum';
-import { TextFilterType } from 'src/shared/enums/testFilterType.enum';
+import { TextFilterType } from 'src/shared/enums/textFilterType.enum';
 
 export interface UsersQuery {
   firstName?: string;

@@ -1,4 +1,4 @@
-import { TextFilterType } from 'src/shared/enums/testFilterType.enum';
+import { TextFilterType } from 'src/shared/enums/textFilterType.enum';
 
 export interface ProductsQuery {
   minPrice?: number;
