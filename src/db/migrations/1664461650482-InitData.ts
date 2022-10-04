@@ -46,7 +46,7 @@ export class InitData1664461650482 implements MigrationInterface {
         id: savedId,
         name: faker.commerce.productName(),
         price: faker.commerce.price(),
-        count: faker.datatype.number(10),
+        count: faker.datatype.number(100),
         tags: [tags[0], tags[1]],
         createdAt: faker.date.past(),
         updatedAt: faker.date.past(),
